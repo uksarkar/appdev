@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function(){
+    return redirect()->route("login");
 });
 
 Auth::routes();
@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/products', 'ProductController');
+Route::resource('/users', 'UsersController')->middleWare('auth');

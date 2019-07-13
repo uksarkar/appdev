@@ -4,7 +4,7 @@
 @section('content')
     <div class="container-fluid text-center">    
             <div class="row content">
-                @include('layouts.sideber')
+                @include('layouts.sidebar')
                 <div class="col-sm-10 text-left pl-0">
                     <div class="card">
                         <div class="card-body">

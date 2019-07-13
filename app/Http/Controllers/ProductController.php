@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateProductRequest;
@@ -24,7 +25,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('image')->latest()->paginate(15);
-        return view('products.allproducts', compact('products'));
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -34,7 +35,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.addproduct');
+        return view('admin.products.create');
     }
 
     /**
@@ -56,7 +57,7 @@ class ProductController extends Controller
             $getdata['url'] = $imageName;
             $product->image()->create($getdata);
         }
-        return redirect()->route('products.index')->with('successMassege','Product was added.');
+        return redirect()->route('products.index')->with('successMassage','Product was added.');
     }
 
     /**
@@ -67,7 +68,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.viewproduct', compact('product'));
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -78,7 +79,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.editproduct', compact('product'));
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
@@ -96,11 +97,11 @@ class ProductController extends Controller
             if (!empty($product->image) && file_exists($oldImage = public_path().$product->image->url)) {
                 unlink($oldImage);
             }
-            $getdata = preg_replace('/ /', '-', $imageName);
-            $request->image->move(public_path('images'),$getdata);
-            $product->image()->update(['url'=>$getdata]);
+            $getData = preg_replace('/ /', '-', $imageName);
+            $request->image->move(public_path('images'),$getData);
+            $product->image()->update(['url'=>$getData]);
         }
-        return redirect()->route('products.index')->with('successMassege', 'The product has been successfuly updated.');
+        return redirect()->route('products.index')->with('successMassage', 'The product has been successfully updated.');
     }
 
     /**
@@ -114,7 +115,8 @@ class ProductController extends Controller
         $product->delete();
         if (!empty($product->image) && file_exists($imageName = public_path().$product->image->url)) {
             unlink($imageName);
+            $product->image()->delete();
         }
-        return redirect()->route('products.index')->with('successMassege','The product has been successfuly deleted.');
+        return redirect()->route('products.index')->with('successMassage','The product has been successfully deleted.');
     }
 }

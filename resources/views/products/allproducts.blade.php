@@ -3,16 +3,16 @@
 @section('content')
     <div class="container-fluid text-center">    
             <div class="row content">
-                @include('layouts.sideber')
+                @include('layouts.sidebar')
                 <div class="col-sm-10 text-left pl-0">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-header mb-2">
                                 All Products
                             </h4>
-                            @if (session()->has('successMassege'))
+                            @if (session()->has('successMassage'))
                                 <div class="alert alert-success">
-                                    {{ session()->get('successMassege') }}
+                                    {{ session()->get('successMassage') }}
                                 </div>
                             @endif
                             @if (count($products) > 0)

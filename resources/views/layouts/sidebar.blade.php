@@ -42,13 +42,13 @@
         <div class="category-content">
             <ul id="sidebar-editable-nav" class="nav flex-column">
                 <li class="nav-item">
-                    <a href="/admin/customers" class="nav-link">
+                    <a href="{{ route('users.index') }}" class="nav-link">
                         <i class="fas fa-users" aria-hidden="true"></i>
                         All Users
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/resettest" class="nav-link">
+                <a href="{{ route('users.create') }}" class="nav-link">
                         <i class="fas fa-user-plus" aria-hidden="true"></i>
                         Add User
                     </a>
