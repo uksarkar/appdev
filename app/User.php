@@ -76,6 +76,9 @@ class User extends Authenticatable
     public function products(){
         return $this->hasMany("App\Product");
     }
+    public function shops(){
+        return $this->hasMany("App\Shop");
+    }
     public function isOnline()
     {
         return Cache::has('user-is-online-' . $this->id);

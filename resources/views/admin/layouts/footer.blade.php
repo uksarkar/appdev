@@ -9,7 +9,7 @@
 <script src="{{ asset("vendors/chart.js/js/Chart.min.js") }}"></script>
 <script src="{{ asset("vendors/@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips.min.js") }}"></script>
 <script src="{{ asset("js/main.js") }}"></script>
-@if(Route::is("products.create") || Route::is("products.edit") || Route::is("users.create") || Route::is("users.edit"))
+@if(Route::is("products.create") || Route::is("products.edit") || Route::is("users.create") || Route::is("users.edit") || Route::is("shops.create") || Route::is("shops.edit"))
     <script>
         function readURL(input) {
             if (input.files && input.files[0]) {

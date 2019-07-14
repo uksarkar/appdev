@@ -38,4 +38,7 @@ class Product extends Model
     public function image(){
         return $this->morphOne('App\Image', 'imageable');
     }
+    public function shops(){
+        return $this->belongsToMany("App\Shop");
+    }
 }

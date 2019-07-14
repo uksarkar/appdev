@@ -8,6 +8,9 @@
             <li class="nav-title">Users</li>
             <li class="nav-item"><a class="nav-link" href="{{ route("users.index") }}"><i class="nav-icon icon-people"></i> All Users</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route("users.create") }}"><i class="nav-icon icon-user-follow"></i> Add User</a></li>
+            <li class="nav-title">Shops</li>
+            <li class="nav-item"><a class="nav-link" href="{{ route("shops.index") }}"><i class="nav-icon icon-basket-loaded"></i> All Shops</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route("shops.create") }}"><i class="nav-icon icon-plus"></i> Add Shop</a></li>
         </ul>
     </nav>
     <button class="sidebar-minimizer brand-minimizer" type="button"></button>

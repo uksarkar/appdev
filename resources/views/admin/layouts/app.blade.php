@@ -17,7 +17,7 @@
     <!-- Main styles for this application-->
     <link href="{{ asset("css/style.css") }}" rel="stylesheet">
     <link href="{{ asset("vendors/pace-progress/css/pace.min.css") }}" rel="stylesheet">
-    @if(Route::is("products.create") || Route::is("products.edit") || Route::is("users.create") || Route::is("users.edit"))
+    @if(Route::is("products.create") || Route::is("products.edit") || Route::is("users.create") || Route::is("users.edit") || Route::is("shops.create") || Route::is("shops.edit"))
         <style>
             .avatar-upload {
                 position: relative;
