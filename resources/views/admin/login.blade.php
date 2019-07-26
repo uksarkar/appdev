@@ -14,12 +14,18 @@
                                 <h1>Login</h1>
                                 <p class="text-muted">Sign In to your account</p>
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend"><span class="input-group-text">@</span></div>
-                                    <input name="email" class="form-control" type="text" placeholder="email">
+                                    <div class="input-group-prepend"><span class="input-group-text @error('email') text-danger @enderror">@</span></div>
+                                    <input id="login-email" name="email" class="form-control @error('email')is-invalid @enderror" type="text" placeholder="email" value="{{ old('email') }}" required>
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="input-group mb-4">
-                                    <div class="input-group-prepend"><span class="input-group-text"><i class="icon-lock"></i></span></div>
-                                    <input class="form-control" type="password" name="password" placeholder="Password">
+                                    <div class="input-group-prepend"><span class="input-group-text @error('password')text-danger @enderror"><i class="icon-lock"></i></span></div>
+                                    <input class="form-control @error('password')is-invalid @enderror" value="{{ old('password') }}" type="password" name="password" placeholder="Password" required>
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="row">
                                     <div class="col-6">

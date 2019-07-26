@@ -5,10 +5,12 @@
 <script src="{{ asset("vendors/pace-progress/js/pace.min.js") }}"></script>
 <script src="{{ asset("vendors/perfect-scrollbar/js/perfect-scrollbar.min.js") }}"></script>
 <script src="{{ asset("vendors/@coreui/coreui/js/coreui.min.js") }}"></script>
-<!-- Plugins and scripts required by this view-->
-<script src="{{ asset("vendors/chart.js/js/Chart.min.js") }}"></script>
-<script src="{{ asset("vendors/@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips.min.js") }}"></script>
-<script src="{{ asset("js/main.js") }}"></script>
+@if(Route::is('home'))
+    <!-- Plugins and scripts required by this view-->
+    <script src="{{ asset("vendors/chart.js/js/Chart.min.js") }}"></script>
+    <script src="{{ asset("vendors/@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips.min.js") }}"></script>
+    <script src="{{ asset("js/main.js") }}"></script>
+@endif
 @if(Route::is("products.create") || Route::is("products.edit") || Route::is("users.create") || Route::is("users.edit") || Route::is("shops.create") || Route::is("shops.edit"))
     <script>
         function readURL(input) {
@@ -53,3 +55,25 @@
         });
     </script>
 @endif
+<script>
+    $(document).ready(function() {
+        $("#productSub").click(function(){
+            $("#SubForm").submit();
+            $(this).prop("disabled", true);
+        });
+        let email_input = $("#login-email");
+        function emailCheck() {
+            let email = email_input.val();
+            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+            if(regex.test(email)) {
+                email_input.removeClass('is-invalid');
+                email_input.addClass('is-valid');
+            }else{
+                email_input.removeClass('is-valid');
+                email_input.addClass('is-invalid');
+            }
+        }
+        email_input.on('input', emailCheck);
+    });
+</script>

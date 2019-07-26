@@ -44,7 +44,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone', 'location'
     ];
 
     /**
@@ -83,4 +83,12 @@ class User extends Authenticatable
     {
         return Cache::has('user-is-online-' . $this->id);
     }
+    public function hasShops($product){
+        $shops = $this->shops()->whereDoesntHave('products', function ($query) use($product) {
+            $query->where('product_id','=', $product->id);
+        })->get();
+        return $shops;
+    }
+
+    //-------END-------------------------//
 }

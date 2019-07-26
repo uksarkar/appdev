@@ -10,8 +10,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><i class="icon-home"></i></li>
                 <li class="breadcrumb-item active">Admin</li>
-                <li class="breadcrumb-item"><a href="{{ route("products.index") }}">All Products</a></li>
-                <li class="breadcrumb-item active">Edit Product</li>
+                <li class="breadcrumb-item"><a href="{{ route("shops.index") }}">All Shops</a></li>
+                <li class="breadcrumb-item active">Edit Shop</li>
                 <!-- Breadcrumb Menu-->
                 <li class="breadcrumb-menu d-md-down-none">
                     <div class="btn-group" role="group" aria-label="Button group"><a class="btn" href="/"><i class="icon-graph"></i>  Dashboard</a></div>
@@ -30,9 +30,9 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
-                                <div class="card-header"><i class="fa fa-edit"></i>Edit Product</div>
+                                <div class="card-header"><i class="fa fa-edit"></i>Edit Shop</div>
                                 <div class="card-body">
-                                    <form action="{{ route("products.update", $product->id) }}" method="post" enctype="multipart/form-data">
+                                    <form action="{{ route("shops.update", $shop->id) }}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         @method("PATCH")
                                         <div class="row">
@@ -44,7 +44,7 @@
                                                         <label for="imageUpload"></label>
                                                     </div>
                                                     <div class="avatar-preview">
-                                                        <div id="imagePreview" style="background-image: url('@if($product->image){{ $product->image->url }}@else https://via.placeholder.com/300x300.png?text=Image @endif');">
+                                                        <div id="imagePreview" style="background-image: url('@if($shop->image){{ $shop->image->url }}@else https://via.placeholder.com/300x300.png?text=Image @endif');">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -54,13 +54,19 @@
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">Name</span></div>
-                                                        <input class="form-control" id="name" type="text" name="name" placeholder="Product Name" required value="{{ $product->name }}">
+                                                        <input class="form-control" id="name" type="text" name="name" placeholder="Product Name" required value="{{ $shop->name }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text">Location</span></div>
+                                                        <input class="form-control" id="location" type="text" name="location" placeholder="Location" required value="{{ $shop->location }}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text">Description</span></div>
-                                                        <textarea class="form-control" id="textarea-input" name="description" rows="9" placeholder="Content.." required>{{ $product->description }}</textarea>
+                                                        <textarea class="form-control" id="textarea-input" name="description" rows="9" placeholder="Content.." required>{{ $shop->description }}</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group form-actions">

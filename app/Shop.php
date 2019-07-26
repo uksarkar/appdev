@@ -12,7 +12,10 @@ class Shop extends Model
         return $this->belongsTo("App\User");
     }
     public function products(){
-        return $this->hasMany("App\Product");
+        return $this->belongsToMany("App\Product");
+    }
+    public function price(){
+        return $this->hasMany("App\Price");
     }
     public function image(){
         return $this->morphOne("App\Image", "imageable");

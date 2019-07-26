@@ -55,7 +55,7 @@
                                                         <form class="formsub" method="POST" action="{{ route("products.destroy", $product->id) }}">@csrf @method("DELETE")</form>
                                                     </td>
                                                     <td>
-                                                        {{  Str::limit($product->description, 80, ' (...)') }}
+                                                        {{  Str::limit($product->description, 70, ' (...)') }}
                                                     </td>
                                                 </tr>
                                             @endforeach

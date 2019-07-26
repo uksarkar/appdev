@@ -48,14 +48,14 @@
                                                 </td>
                                                 <td>
                                                     <div>{{ $user->name }}</div>
-                                                    <div class="small text-muted"><span>Admin</span> | Registered: {{ $user->created_at->format('M d Y') }}</div>
+                                                    <div class="small text-muted"><span>{{ $user->roles[0]->name }}</span> | Registered: {{ $user->created_at->format('M d Y') }}</div>
                                                 </td>
                                                 <td class="text-center"><i class="flag-icon flag-icon-bd h4 mb-0" id="us" title="bd"></i></td>
                                                 <td>
                                                     <a href="{{ route("users.show", $user->id) }}" class="btn btn-primary">View Profile</a>
                                                     <a href="{{ route("users.edit", $user->id) }}" class="btn btn-secondary">Edit Profile</a>
                                                 </td>
-                                                <td class="text-center"><a href="#" class="badge badge-pill badge-light">0</a></td>
+                                                <td class="text-center"><span class="badge badge-pill badge-light">@if(count($user->shops) > 0){{ count($user->shops) }}@endif</span></td>
                                                 <td>
                                                     <div class="small text-muted">Last Active</div><strong>@if($user->activity && !$user->isOnline()){{ $user->activity->updated_at->diffForHumans() }}@elseif($user->isOnline())Online Now @else Not Available @endif</strong>
                                                 </td>

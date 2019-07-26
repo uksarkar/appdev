@@ -59,7 +59,7 @@ class ShopController extends Controller
      */
     public function show(Shop $shop)
     {
-        //
+        return view('admin.shops.show', compact('shop'));
     }
 
     /**
@@ -70,7 +70,7 @@ class ShopController extends Controller
      */
     public function edit(Shop $shop)
     {
-        //
+        return view('admin.shops.edit', compact('shop'));
     }
 
     /**

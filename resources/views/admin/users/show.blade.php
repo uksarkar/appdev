@@ -53,10 +53,10 @@
                                                 </div>
                                                 @endif
                                                 <div class="bg-light p-1 rounded mt-3">
-                                                    Locetion: #Strite 124, #road 1212
+                                                    Location: {{ $user->location }}
                                                 </div>
                                                 <div class="bg-light p-1 rounded mt-3">
-                                                    Phone: +8801XXXXXXXXX
+                                                    Phone: {{ $user->phone }}
                                                 </div>
                                         </div>
                                         <div class="col-sm-8">
@@ -157,7 +157,7 @@
                                                         <form class="formsub" method="POST" action="{{ route("products.destroy", $product->id) }}">@csrf @method("DELETE")</form>
                                                     </td>
                                                     <td>
-                                                        {{  Str::limit($product->description, 80, ' (...)') }}
+                                                        {{  Str::limit($product->description, 70, ' (...)') }}
                                                     </td>
                                                 </tr>
                                             @endforeach
