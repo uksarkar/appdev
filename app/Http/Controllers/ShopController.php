@@ -16,7 +16,7 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $shops = Shop::with('user')->latest()->paginate(15);
+        $shops = Shop::with('image')->with('user')->latest()->paginate(15);
         return view('admin.shops.index', compact('shops'));
     }
 

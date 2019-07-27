@@ -19,7 +19,7 @@ class UsersController extends Controller
      */
     public function index(User $user)
     {
-        $users = $user->with('image')->with('roles')->paginate(15);
+        $users = $user->with('activity')->with('shops')->with('image')->with('roles')->paginate(15);
         return view('admin.users.index', compact('users'));
     }
 
