@@ -75,5 +75,43 @@
             }
         }
         email_input.on('input', emailCheck);
+
+        //submitting form from list
+
+        $(".subbtn").click(function () {
+            let subForm = $(this).data().sub;
+            $('.formsub[data-sub='+subForm+']').submit();
+            $(this).prop('disabled', true);
+        })
+
+        //Show and hiding price edit form
+
+        $(".formShowBtn").click(function () {
+            let editForm = $(this).data().edit;
+            $("tr[data-tr="+editForm+"]").hide();
+            $("tr[data-edit="+editForm+"]").fadeIn();
+        })
+
+        $(".xbtn").click(function () {
+            let editForm = $(this).data().edit;
+            $("tr[data-tr="+editForm+"]").fadeIn();
+            $("tr[data-edit="+editForm+"]").hide();
+        })
+
+        //Generating random data on form and submit it
+
+        $(".sButton").click(function () {
+            $(this).prop('disabled', true);
+            let editArea = $(this).data().info;
+            let id = editArea.replace('e','');
+            let amounts = $('input[data-info='+editArea+']').val();
+            let description = $('textarea[data-info='+editArea+']').val();
+            let form = $('#edit-form-bottom');
+            form.children('input[name=amounts]').val(amounts);
+            form.children('textarea[name=description]').html(description);
+            form.prop('action','/price/'+id);
+            form.submit();
+        })
+
     });
 </script>

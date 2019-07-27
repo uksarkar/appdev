@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         foreach(Role::all() as $role) {
-            $users = factory(User::class, 3)->create();
+            $users = factory(User::class, 5)->create();
             foreach($users as $user){
                 $user->roles()->attach($role);
             }

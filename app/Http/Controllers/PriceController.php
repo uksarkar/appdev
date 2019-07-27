@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePriceRequest;
+use App\Http\Requests\PriceUpdateRequest;
 use App\Price;
 use App\Product;
 use Illuminate\Http\Request;
@@ -33,9 +34,11 @@ class PriceController extends Controller
      * @param  \App\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Price $price)
+    public function update(PriceUpdateRequest $request, Price $price)
     {
-        //
+        $price->update($request->all());
+
+        return back()->with('successMessage','Price was updated!');
     }
 
     /**
@@ -46,6 +49,11 @@ class PriceController extends Controller
      */
     public function destroy(Price $price)
     {
-        //
+        $product = $price->product;
+        $shop = $price->shop;
+        $product->shops()->detach($shop);
+        $price->delete();
+
+        return back()->with('successMessage','Product was removed.');
     }
 }

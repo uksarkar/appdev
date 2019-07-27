@@ -52,8 +52,8 @@
                                                     <td>
                                                         <a href="{{ route("shops.show", $shop->id) }}" class="btn btn-sm btn-primary">View</a>
                                                         <a href="{{ route("shops.edit", $shop->id) }}" class="btn btn-sm btn-info">Edit</a>
-                                                        <button class="btn btn-danger btn-sm subbtn">Delete</button>
-                                                        <form class="formsub" method="POST" action="{{ route("shops.destroy", $shop->id) }}">@csrf @method("DELETE")</form>
+                                                        <button data-sub="{{ 'f'.$shop->id }}" class="btn btn-danger btn-sm subbtn">Delete</button>
+                                                        <form data-sub="{{ 'f'.$shop->id }}" class="formsub" method="POST" action="{{ route("shops.destroy", $shop->id) }}">@csrf @method("DELETE")</form>
                                                     </td>
                                                     <td>
                                                         {{  Str::limit($shop->description, 70, ' (...)') }}

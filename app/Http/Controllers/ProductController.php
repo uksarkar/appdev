@@ -94,12 +94,19 @@ class ProductController extends Controller
         $product->update($request->all());
         if ($request->hasFile('image')) {
             $imageName = time().'_'.$request->file('image')->getClientOriginalName();
-            if (!empty($product->image) && file_exists($oldImage = public_path().$product->image->url)) {
-                unlink($oldImage);
-            }
             $getData = preg_replace('/ /', '-', $imageName);
+
+            if (!empty($product->image)) {
+                if (file_exists($oldImage = public_path().$product->image->url)){
+                    unlink($oldImage);
+                }
+                $product->image()->update(['url'=>$getData]);
+            } else {
+                $product->image()->create(['url'=>$getData]);
+            }
+
             $request->image->move(public_path('images'),$getData);
-            $product->image()->update(['url'=>$getData]);
+
         }
         return redirect()->route('products.index')->with('successMassage', 'The product has been successfully updated.');
     }
@@ -107,16 +114,30 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param \App\Product $product
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Product $product)
     {
-        $product->delete();
+        //delete all of price and detach all of the shops
+        if (!blank($product->shops)){
+            foreach ($product->shops as $shop){
+                $product->price()->where('shop_id',$shop->id)->first()->delete();
+            }
+            $product->shops()->detach();
+        }
+
+        //Delete if there are any images
         if (!empty($product->image) && file_exists($imageName = public_path().$product->image->url)) {
             unlink($imageName);
             $product->image()->delete();
         }
+
+        //Delete the product now
+        $product->delete();
+
+        //return the response
         return redirect()->route('products.index')->with('successMassage','The product has been successfully deleted.');
     }
 }

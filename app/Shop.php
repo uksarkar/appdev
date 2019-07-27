@@ -18,6 +18,6 @@ class Shop extends Model
         return $this->hasMany("App\Price");
     }
     public function image(){
-        return $this->morphOne("App\Image", "imageable");
+        return $this->morphOne('App\Image', 'imageable');
     }
 }

@@ -15,21 +15,15 @@ Route::get('/', function(){
     return redirect()->route("login");
 });
 
-Auth::routes();
+//Auth::routes();
+
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\LoginController@login')->name('login');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/products', 'ProductController');
 Route::resource('/users', 'UsersController')->middleWare('auth');
 Route::resource('/shops', 'ShopController')->middleWare('auth');
-Route::resource('/price', 'PriceController')->middleWare('auth');
-
-Route::get('/test', function (){
-    $number = mt_rand(1,10);
-    return $number;
-});
-Route::get('/test2', function (){
-    $product = \App\Product::find(2);
-
-    var_dump(blank(auth()->user()->hasShops($product)));
-});
+Route::resource('/price', 'PriceController')->middleWare('auth')->only('store','update','destroy');

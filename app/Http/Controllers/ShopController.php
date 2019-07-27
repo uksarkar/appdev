@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Shop;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateShopRequest;
+use Illuminate\Http\Response;
 
 class ShopController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -22,7 +23,7 @@ class ShopController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -32,12 +33,12 @@ class ShopController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\CreateShopRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateShopRequest $request
+     * @param Shop $shop
+     * @return Response
      */
     public function store(CreateShopRequest $request, Shop $shop)
     {
-        // dd($request->validated());
         $getData = $request->validated();
         $getData['user_id'] = auth()->user()->id;
         $shop = $shop->create($getData);
@@ -55,7 +56,7 @@ class ShopController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Shop  $shop
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Shop $shop)
     {
@@ -66,7 +67,7 @@ class ShopController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Shop  $shop
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Shop $shop)
     {
@@ -76,23 +77,57 @@ class ShopController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Shop  $shop
-     * @return \Illuminate\Http\Response
+     * @param CreateShopRequest $request
+     * @param \App\Shop $shop
+     * @return Response
      */
-    public function update(Request $request, Shop $shop)
+    public function update(CreateShopRequest $request, Shop $shop)
     {
-        //
+        $shop->update($request->validated());
+        if ($request->hasFile('image')) {
+            $imageName = time().'_'.$request->file('image')->getClientOriginalName();
+            $getData = preg_replace('/ /', '-', $imageName);
+
+            if (!empty($shop->image)) {
+                if (file_exists($oldImage = public_path().$shop->image->url)){
+                    unlink($oldImage);
+                }
+                $shop->image()->update(['url'=>$getData]);
+            } else {
+                $shop->image()->create(['url'=>$getData]);
+            }
+            $request->image->move(public_path('images'),$getData);
+        }
+        return redirect()->route('shops.index')->with('successMassage', 'The shop has been successfully updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Shop  $shop
-     * @return \Illuminate\Http\Response
+     * @param \App\Shop $shop
+     * @return Response
+     * @throws \Exception
      */
     public function destroy(Shop $shop)
     {
-        //
+        //delete all of price and detach all of the product
+        if (!blank($shop->shops)){
+            foreach ($shop->products as $product){
+                $shop->price()->where('product_id',$product->id)->first()->delete();
+            }
+            $shop->products()->detach();
+        }
+
+        //Delete if there are any images
+        if (!empty($shop->image) && file_exists($imageName = public_path().$shop->image->url)) {
+            unlink($imageName);
+            $shop->image()->delete();
+        }
+
+        //Delete the shop now
+        $shop->delete();
+
+        //return the response
+        return redirect()->route('shops.index')->with('successMassage','The shop has been successfully deleted.');
     }
 }

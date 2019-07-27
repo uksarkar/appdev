@@ -83,7 +83,7 @@
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('shops.show', $shop->id ) }}">{{ $shop->name }}</a>
-                                                    <div class="small text-muted">Last Update: {{ $shop->updated_at->diffForHumans() }}</div>
+                                                    <div class="small text-muted">By: {{ $shop->user->name }}</div>
                                                 </td>
                                                 <td>
                                                     <p class="bg-light p-1 rounded">{{ $shop->price[0]->amounts }}</p>
